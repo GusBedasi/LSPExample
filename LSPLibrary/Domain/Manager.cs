@@ -1,8 +1,10 @@
 using System;
+using LSPLibrary.Domain.Base;
+using LSPLibrary.Domain.Contracts;
 
-namespace LSPLibrary
+namespace LSPLibrary.Domain
 {
-    public class Manager : Employee
+    public class Manager : Employee, IManager
     {
         public  override void CalculatePerHourRate(int rank)
         {

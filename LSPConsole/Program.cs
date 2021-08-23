@@ -1,5 +1,7 @@
 ﻿using System;
-using LSPLibrary;
+using LSPLibrary.Domain;
+using LSPLibrary.Domain.Base;
+using LSPLibrary.Domain.Contracts;
 
 namespace LSPConsole
 {
@@ -7,22 +9,36 @@ namespace LSPConsole
     {
         static void Main(string[] args)
         {
-            var accountVP = new Manager();
+            // Demonstration of Liskov of Substitution Principle
+            // We can switch over employee
+            BaseEmployee firstEmp = new Employee();
 
-            accountVP.FirstName = "Emma";
-            accountVP.LastName = "Stone";
-            accountVP.CalculatePerHourRate(4);
+            firstEmp.FirstName = "Gustavo";
+            firstEmp.LastName = "Bedasi";
+            firstEmp.CalculatePerHourRate(2);
+            
+            // CEO,
+            BaseEmployee secondEmp = new CEO();
 
-            var emp = new Employee();
+            secondEmp.FirstName = "Gustavo";
+            secondEmp.LastName = "Bedasi";
+            //secondEmp.GeneratePerformanceReview();
+            secondEmp.CalculatePerHourRate(2);
+            
+            // Manager and the code still wors fine.
+            BaseEmployee thirdEmp = new Manager();
 
-            emp.FirstName = "Gustavo";
-            emp.LastName = "Bedasi";
-            emp.AssignManager(accountVP);
-            emp.CalculatePerHourRate(2);
+            thirdEmp.FirstName = "Gustavo";
+            thirdEmp.LastName = "Bedasi";
+            //thirdEmp.AssignManager(secondEmp);
+            thirdEmp.CalculatePerHourRate(2);
 
-            Console.WriteLine($"{ emp.FirstName }'s salaryis ${ emp.Salary }/hour");
+            //All of the entities can be of type BaseEmployee and the interfaces they implements which one you choose will have it`s details
+            //The objects of a superclass can be replaced by the objects of its subclasses without breaking the application
+            
+            Console.WriteLine($"{ firstEmp.FirstName }'s salaryis ${ firstEmp.Salary }/hour");
 
-            Console.WriteLine("Press enter to exit...")
+            Console.WriteLine("Press enter to exit...");
             Console.ReadLine();
         }
     }
